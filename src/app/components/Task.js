@@ -1,8 +1,7 @@
 import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
-export const Task = ({task}) => {
-    console.log('first'+task)
+export const Task = ({task, index}) => {
   return (
     <div className="task">
       {task.content}
