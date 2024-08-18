@@ -8,22 +8,22 @@ export const sampleData = {
     },
     columns:{
         'column-1':{
-            id:'col-1',
+            id:'column-1',
             title:'To Do',
             taskIds:['task-1','task-2','task-3']
         },
         'column-2':{
-            id:'col-2',
+            id:'column-2',
             title:'In Progress',
             taskIds:[]
         },
         'column-3':{
-            id:'col-3',
+            id:'column-3',
             title:'Done',
             taskIds:[]
         },
         'column-4':{
-            id:'col-4',
+            id:'column-4',
             title:'Blocked',
             taskIds:[]
         }
