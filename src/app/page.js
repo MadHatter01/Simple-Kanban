@@ -18,6 +18,7 @@ export default function Home() {
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
+    if (!destination) return;
 
     const cols = data['columns']
     const startCol = cols[source.droppableId];
@@ -45,6 +46,34 @@ export default function Home() {
       };
       setData(_newState);
       return
+    }
+    else{
+      const _startTasks = Array.from(startCol.taskIds);
+      const _endTasks = Array.from(endCol.taskIds);
+      _startTasks.splice(source.index, 1)
+      _endTasks.splice(destination.index, 0, draggableId);
+
+
+      const _newStartCol = {
+        ...startCol,
+        taskIds:_startTasks
+      }
+
+      const _newEndCol = {
+        ...endCol,
+        taskIds:_endTasks
+      }
+
+      const _newState = {
+        ...data,
+        columns:{
+          ...data.columns,
+          [_newStartCol.id]:_newStartCol,
+          [_newEndCol.id]: _newEndCol,
+        },
+      }
+
+      setData(_newState);
     }
   }
   return (
