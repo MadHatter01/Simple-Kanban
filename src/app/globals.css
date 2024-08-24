@@ -123,4 +123,11 @@ a {
 
 .column{
   margin:2rem;
+  height:100vh;
+}
+
+
+.taskName{
+  padding:0.5rem;
+  margin:1rem;
 }

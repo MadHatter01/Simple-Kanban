@@ -15,6 +15,35 @@ const DragDropContext = dynamic(
 
 export default function Home() {
   const [data, setData] = useState(sampleData);
+  const [newTaskContent, setNewTaskContent] = useState("")
+
+
+  const handleOnKey = (event) => {
+
+    if (event.key === 'Enter' || event.keyCode === 13) {
+
+      const newTaskId = `task-${Object.keys(data.tasks).length + 1}`;
+      const newTask = { id: newTaskId, content: newTaskContent }
+
+      const newCol = {
+        ...data.columns['column-1'],
+        taskIds: [...data.columns['column-1'].taskIds, newTaskId]
+      }
+      setData({
+        ...data,
+        tasks: {
+          ...data.tasks,
+          [newTaskId]: newTask
+        },
+        columns: {
+          ...data.columns,
+          ['column-1']: newCol
+        }
+      })
+
+      setNewTaskContent('')
+    }
+  }
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -47,7 +76,7 @@ export default function Home() {
       setData(_newState);
       return
     }
-    else{
+    else {
       const _startTasks = Array.from(startCol.taskIds);
       const _endTasks = Array.from(endCol.taskIds);
       _startTasks.splice(source.index, 1)
@@ -56,19 +85,19 @@ export default function Home() {
 
       const _newStartCol = {
         ...startCol,
-        taskIds:_startTasks
+        taskIds: _startTasks
       }
 
       const _newEndCol = {
         ...endCol,
-        taskIds:_endTasks
+        taskIds: _endTasks
       }
 
       const _newState = {
         ...data,
-        columns:{
+        columns: {
           ...data.columns,
-          [_newStartCol.id]:_newStartCol,
+          [_newStartCol.id]: _newStartCol,
           [_newEndCol.id]: _newEndCol,
         },
       }
@@ -78,7 +107,7 @@ export default function Home() {
   }
   return (
     <main className={styles.main}>
-
+      <input type="text" className='taskName' name="taskName" id="taskName" placeholder="Task Name" value={newTaskContent} onChange={(e) => setNewTaskContent(e.target.value)} onKeyUp={handleOnKey} />
       <DragDropContext onDragEnd={onDragEnd}>
 
         <div className="board" >
