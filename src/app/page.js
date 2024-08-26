@@ -105,10 +105,17 @@ export default function Home() {
       setData(_newState);
     }
   }
+
+  const handleDelete = (id)=>{
+ 
+    console.log(id)
+   }
+   
   return (
     <main className={styles.main}>
       <input type="text" className='taskName' name="taskName" id="taskName" placeholder="Task Name" value={newTaskContent} onChange={(e) => setNewTaskContent(e.target.value)} onKeyUp={handleOnKey} />
       <DragDropContext onDragEnd={onDragEnd}>
+      
 
         <div className="board" >
           {data.columnOrder.map((columnId) => {
@@ -119,7 +126,7 @@ export default function Home() {
 
 
 
-            return <Column key={column.id} column={column} tasks={tasks} />
+            return <Column key={column.id} column={column} tasks={tasks} handleDelete={handleDelete}/>
           })}
 
         </div>

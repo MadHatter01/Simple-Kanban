@@ -17,8 +17,9 @@ const Droppable = dynamic(
       import('react-beautiful-dnd').then((mod) => mod.Draggable),
     { ssr: false }
   );
-  
-const Column = ({ column, tasks }) => {
+
+
+const Column = ({ column, tasks, handleDelete }) => {
     
   return (
     <div className="column">
@@ -41,6 +42,7 @@ const Column = ({ column, tasks }) => {
                     className="task"
                   >
                     {task.content}
+                    <button onClick={()=>handleDelete(task.id)}>Delete</button>
                   </div>
                 )}
               </Draggable>
