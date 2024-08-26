@@ -108,7 +108,22 @@ export default function Home() {
 
   const handleDelete = (id)=>{
  
-    console.log(id)
+  const newTasks = {...data.tasks};
+  delete newTasks[id];
+ 
+  const newColumns = {
+    ...data.columns
+  }
+
+  Object.keys(newColumns).forEach(cid=>{
+    newColumns[cid].taskIds = newColumns[cid].taskIds.filter(tid=>tid!=id)
+  })
+
+setData({
+  ...data,
+  tasks:newTasks,
+  columns:newColumns,
+})
    }
    
   return (
