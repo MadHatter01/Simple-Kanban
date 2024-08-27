@@ -1,10 +1,12 @@
 'use client'
+
 import styles from "./page.module.css";
 import { sampleData } from "./data";
 import Column from "./components/Column";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import dynamic from "next/dynamic";
+import db from "./db";
 
 
 const DragDropContext = dynamic(
@@ -16,6 +18,15 @@ const DragDropContext = dynamic(
 export default function Home() {
   const [data, setData] = useState(sampleData);
   const [newTaskContent, setNewTaskContent] = useState("")
+
+
+  useEffect(()=>{
+    const fetchTasksFromDB = async() =>{
+      const allTasks = await db.tasks.toArray();
+      console.log(allTasks)
+    }
+    fetchTasksFromDB();
+  }, []);
 
 
   const handleOnKey = (event) => {
