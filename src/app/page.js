@@ -23,7 +23,17 @@ export default function Home() {
   useEffect(()=>{
     const fetchTasksFromDB = async() =>{
       const allTasks = await db.tasks.toArray();
-      console.log(allTasks)
+      const tasksMap = {};
+      const columns = {...data.columns};
+
+      allTasks.forEach(task => {
+        tasksMap[task.id] = task;
+        if(!columns[task.columnId].taskIds.includes(task.id)){
+          columns[task.columnId].taskIds.push(task.id);
+        }
+      });
+
+      console.log(allTasks, columns)
     }
     fetchTasksFromDB();
   }, []);
