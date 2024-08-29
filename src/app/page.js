@@ -24,22 +24,30 @@ export default function Home() {
     const fetchTasksFromDB = async() =>{
       const allTasks = await db.tasks.toArray();
       const tasksMap = {};
-      const columns = {...data.columns};
-
+      const taskColumns = {...data.columns};
+try{
       allTasks.forEach(task => {
         tasksMap[task.id] = task;
-        if(!columns[task.columnId].taskIds.includes(task.id)){
-          columns[task.columnId].taskIds.push(task.id);
+        if(!taskColumns[task.columnId].taskIds.includes(task.id)){
+          taskColumns[task.columnId].taskIds.push(task.id);
         }
       });
 
-      console.log(allTasks, columns)
+      setData(prevData => ({
+        ...prevData, 
+        tasks:tasksMap,
+        columns:taskColumns
+      }))
+    }catch(error){
+      console.error(error);
     }
-    fetchTasksFromDB();
+
+      }
+     fetchTasksFromDB();
   }, []);
 
 
-  const handleOnKey = (event) => {
+  const handleOnKey = async (event) => {
 
     if (event.key === 'Enter' || event.keyCode === 13) {
 
@@ -50,6 +58,8 @@ export default function Home() {
         ...data.columns['column-1'],
         taskIds: [...data.columns['column-1'].taskIds, newTaskId]
       }
+
+      await db.tasks.add(newTask);
       setData({
         ...data,
         tasks: {
@@ -127,7 +137,7 @@ export default function Home() {
     }
   }
 
-  const handleDelete = (id)=>{
+  const handleDelete = async (id)=>{
  
   const newTasks = {...data.tasks};
   delete newTasks[id];
@@ -139,6 +149,7 @@ export default function Home() {
   Object.keys(newColumns).forEach(cid=>{
     newColumns[cid].taskIds = newColumns[cid].taskIds.filter(tid=>tid!=id)
   })
+  await db.tasks.delete(id);
 
 setData({
   ...data,

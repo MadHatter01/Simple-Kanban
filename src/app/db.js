@@ -16,7 +16,7 @@ const addTask = async (task) =>{
     }
 }
 
-addTask({content:'File application', columnId:'column-1'})
+// addTask({content:'File application', columnId:'column-1'})
 
 db.open().catch((error)=>{
     console.error("Failed to open database", error);
