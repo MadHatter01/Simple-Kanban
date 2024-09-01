@@ -160,7 +160,9 @@ setData({
    
   return (
     <main className={styles.main}>
-      <input type="text" className='taskName' name="taskName" id="taskName" placeholder="Task Name" value={newTaskContent} onChange={(e) => setNewTaskContent(e.target.value)} onKeyUp={handleOnKey} />
+      <div>
+      <label htmlFor="taskName">Task</label>
+      <input type="text" className='taskName' name="taskName" id="taskName" placeholder="Write a report.." value={newTaskContent} onChange={(e) => setNewTaskContent(e.target.value)} onKeyUp={handleOnKey} /></div>
       <DragDropContext onDragEnd={onDragEnd}>
       
 
