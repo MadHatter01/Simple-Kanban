@@ -71,7 +71,6 @@ export default function Home() {
           tasks: tasksMap,
           columns: taskColumns,
         }))
-        console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -110,7 +109,7 @@ export default function Home() {
     }
   }
 
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     const { destination, source, draggableId } = result;
     if (!destination) return;
 
@@ -119,7 +118,6 @@ export default function Home() {
     const endCol = cols[destination.droppableId];
     if (!startCol || !endCol) return;
     const _t = data.tasks[draggableId];
-    console.log(startCol, endCol, _t) // test
 
     if (startCol === endCol) {
       const _newtasks = Array.from(startCol.taskIds);
@@ -131,13 +129,6 @@ export default function Home() {
         taskIds: _newtasks,
       }
 
-      const _newState = {
-        ...data,
-        columns: {
-          ...data.columns,
-          [_newCol.id]: _newCol,
-        }
-      };
       setData((prevData) => ({
         ...prevData,
         columns: {
@@ -163,23 +154,28 @@ export default function Home() {
         taskIds: _endTasks
       }
 
-      const _newState = {
-        ...data,
-        columns: {
-          ...data.columns,
-          [_newStartCol.id]: _newStartCol,
-          [_newEndCol.id]: _newEndCol,
-        },
-      }
-
+      const updatedTask = {
+        ...data.tasks[draggableId],
+        columnId: endCol.id, 
+      };
       setData((prevData) => ({
         ...prevData,
+        tasks: {
+          ...prevData.tasks,
+          [draggableId]: updatedTask, // Update the task with the new columnId
+        },
         columns: {
           ...prevData.columns,
           [_newStartCol.id]: _newStartCol,
           [_newEndCol.id]: _newEndCol,
         },
       }));
+
+      try {
+        await db.tasks.put(updatedTask); 
+      } catch (error) {
+        console.error("Error updating task:", error);
+      }
     }
   }
 
