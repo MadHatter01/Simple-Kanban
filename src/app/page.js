@@ -1,10 +1,9 @@
 'use client'
 
 import styles from "./page.module.css";
-import { sampleData } from "./data";
+// import { sampleData } from "./data";
 import Column from "./components/Column";
 import { useEffect, useState } from "react";
-import { Droppable } from "react-beautiful-dnd";
 import dynamic from "next/dynamic";
 import db from "./db";
 

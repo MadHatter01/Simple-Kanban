@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Task } from './Task';
 
 import dynamic from 'next/dynamic';
 
@@ -23,7 +22,7 @@ const Column = ({ column, tasks, handleDelete }) => {
     
   return (
     <div className="column">
-  <h2>{column.title}</h2>
+  <h2 className='column-title'>{column.title}</h2>
 
       <Droppable droppableId={column.id}>
         {(provided) => (
@@ -43,11 +42,12 @@ const Column = ({ column, tasks, handleDelete }) => {
                     className="task"
                   >
                     {task.content}
-                    <button className='deleteBtn' onClick={()=>handleDelete(task.id)}>x</button>
+                    <button className='delete-btn' onClick={()=>handleDelete(task.id)}>x</button>
                   </div>
                 )}
               </Draggable>)
             ))}
+             {provided.placeholder}
           </div>
         )}
       </Droppable>
