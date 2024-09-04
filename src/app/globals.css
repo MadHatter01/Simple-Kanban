@@ -124,13 +124,13 @@ a {
   grid-template-columns: repeat(4, 1fr);
   gap:8rem;
   width:100%;
+  overflow-x: auto;
 }
 
 .column{
   border:1px solid rgba(255,255,255,0.2);
   border-top:none;
   border-bottom:none;
-  height:100vh;
   text-align: center;
   padding: 1rem;
 }
@@ -146,6 +146,10 @@ a {
   font-size: large;
   border:none;
 }
+
+.delete-btn:hover{
+  cursor: pointer;
+}
 .task-list{
   height:100vh;
 }
@@ -153,4 +157,25 @@ a {
 
 .column-title{
   margin-bottom: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .board {
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 4rem; 
+  }
+}
+
+@media (max-width: 900px) {
+  .board {
+    display:flex;
+    overflow-x: auto;
+    gap: 2rem; 
+    padding-bottom: 1rem;
+  }
+
+  .column{
+    flex: 0 0 40vw;
+    height:auto;
+  }
 }

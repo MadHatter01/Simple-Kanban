@@ -123,7 +123,7 @@ export default function Home() {
       _newtasks.splice(source.index, 1); //remove it
       _newtasks.splice(destination.index, 0, draggableId); //add it 
 
-      const _newCol = {
+      const newCol = {
         ...startCol,
         taskIds: _newtasks,
       }
