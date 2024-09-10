@@ -32,6 +32,7 @@ const Column = ({ column, tasks, handleDelete }) => {
             className="task-list"
           >
             {tasks.map((task, index) => (
+         
               task&&(
               <Draggable key={task.id} draggableId={task.id} index={index}>
                 {(provided) => (
@@ -39,8 +40,10 @@ const Column = ({ column, tasks, handleDelete }) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
-                    className="task"
+                    className={`task ${task.columnId === 'column-3'? 'done': ''} ${task.columnId==='column-4'? 'blocked': ''}`}
+                  
                   >
+                         
                     {task.content}
                     <button className='delete-btn' onClick={()=>handleDelete(task.id)}>x</button>
                   </div>

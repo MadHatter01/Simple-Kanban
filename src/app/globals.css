@@ -159,6 +159,14 @@ a {
   margin-bottom: 1rem;
 }
 
+.done{
+  background-color: #06402b;
+}
+
+.blocked{
+  background-color:#b33939;
+}
+
 @media (max-width: 1200px) {
   .board {
     grid-template-columns: repeat(3, 1fr); 
