@@ -3,6 +3,7 @@
 import React from 'react';
 
 import dynamic from 'next/dynamic';
+import {motion} from "framer-motion";
 
 
 const Droppable = dynamic(
@@ -19,14 +20,16 @@ const Droppable = dynamic(
 
 
 const Column = ({ column, tasks, handleDelete }) => {
-    
   return (
     <div className="column">
   <h2 className='column-title'>{column.title}</h2>
 
       <Droppable droppableId={column.id}>
         {(provided) => (
-          <div
+          <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{scale:1, opacity:1}}
+          transition={{ duration: 1 }}
             {...provided.droppableProps}
             ref={provided.innerRef}
             className="task-list"
@@ -51,7 +54,7 @@ const Column = ({ column, tasks, handleDelete }) => {
               </Draggable>)
             ))}
              {provided.placeholder}
-          </div>
+          </motion.div>
         )}
       </Droppable>
     </div>
