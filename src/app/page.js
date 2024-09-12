@@ -15,6 +15,8 @@ const DragDropContext = dynamic(
 );
 
 export default function Home() {
+  const [dropped, setDropped] = useState(false);
+
   // const [data, setData] = useState(sampleData);
   const [data, setData] = useState({
     tasks: {},
@@ -112,6 +114,8 @@ export default function Home() {
     const { destination, source, draggableId } = result;
     if (!destination) return;
 
+    setDropped(true);
+
     const cols = data['columns']
     const startCol = cols[source.droppableId];
     const endCol = cols[destination.droppableId];
@@ -176,6 +180,10 @@ export default function Home() {
         console.error("Error updating task:", error);
       }
     }
+
+    setTimeout(() => {
+      setDropped(false);
+    }, 500);
   }
 
   const handleDelete = async (id) => {
@@ -218,7 +226,7 @@ export default function Home() {
 
 
 
-              return <Column key={column.id} column={column} tasks={tasks} handleDelete={handleDelete} />
+              return <Column key={column.id} column={column} dropped={dropped} tasks={tasks} handleDelete={handleDelete} />
             })}
           </>)}
 
